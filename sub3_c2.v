@@ -1,7 +1,6 @@
 `timescale 1ns/1ps
 // Resta de 3 bits A - B y B - A, usando complemento a 2.
 // Salida de 4 bits: {signo, resultado[2:0]}.
-// sign = 0 ? positivo, sign = 1 ? negativo
 module sub3_c2(
   input  wire [2:0] A,
   input  wire [2:0] B,
