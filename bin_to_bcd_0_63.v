@@ -1,31 +1,28 @@
-// ==============================
+
 // bin6_to_dec2.v  (0..63 -> decenas y unidades)
-// ==============================
+
 module bin_to_bcd_0_63(
   input  [5:0] bin,
   output [3:0] tens,   // 0..6
   output [3:0] ones    // 0..9
 );
-  // División simple (sintetizable)
+  // DivisiÃ³n simple (sintetizable)
   assign tens = bin / 10;
   assign ones = bin % 10;
 endmodule
 
-// ==============================
-// sevenseg_encode.v
-// Salida para display de ánodo común: seg[6:0] = {a,b,c,d,e,f,g}
-// BLANK apaga (todas en 1).
-// MINUS enciende solo el segmento g.
+// Salida para display de Ã¡nodo comÃºn: seg[6:0] = {a,b,c,d,e,f,g}
+
 // ==============================
 module sevenseg_encode(
   input  [3:0] val,     // 0..9, otros -> blank
-  input        minus,   // 1 => símbolo '-'
+  input        minus,   // 1 => sÃ­mbolo '-'
   input        blank,   // 1 => apagado
   output reg [6:0] seg
 );
   always @* begin
     if (blank) begin
-      seg = 7'b111_1111;      // apagado (ánodo común)
+      seg = 7'b111_1111;      // apagado (Ã¡nodo comÃºn)
     end else if (minus) begin
       seg = 7'b111_1110;      // solo 'g' encendida -> '-'
     end else begin
