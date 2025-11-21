@@ -23,15 +23,13 @@ module alu3(
               : ( $signed({1'b0,A}) - $signed({1'b0,B}) );
 
   assign sign_sub = (sdiff < 0);               // 1 si negativo
-  wire [3:0] mag4 = sign_sub ? -sdiff : sdiff; // magnitud (0..7 real, empaquetada en 3 bits)
+  wire [3:0] mag4 = sign_sub ? -sdiff : sdiff; 
   assign sub4 = {sign_sub, mag4[2:0]};
 
-  // Multiplicación
+  // MultiplicaciÃ³n
   assign mul6 = A * B;
 
   // MUX a 6 bits para LEDs/Display.
-  // Para la resta mandamos la MAGNITUD en los 3 LSB (y 0s arriba);
-  // el signo va aparte (sign_sub) para el display y LED[9].
   assign Y6 = (op == 2'b00) ? {2'b00, add4} :
               (op == 2'b01) ? {3'b000, mag4[2:0]} :
               (op == 2'b10) ? mul6 :
