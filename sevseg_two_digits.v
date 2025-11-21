@@ -1,14 +1,12 @@
-// sevseg_two_digits.v
-// Multiplexa 2 dÌgitos (unidades y decenas) en AN0 y AN1.
-// Reloj de 100 MHz -> usamos un divisor simple para ~1.5 kHz de multiplexado total
+
 module sevseg_two_digits(
     input  wire       clk,     // 100 MHz
-    input  wire       reset,   // sÌncrono
+    input  wire       reset,   // s√≠ncrono
     input  wire [3:0] ones,
     input  wire [3:0] tens,
     output reg  [6:0] seg,     // {a,b,c,d,e,f,g} activos en bajo
     output reg        dp,      // punto decimal activo en bajo
-    output reg  [7:0] an       // ·nodos activos en bajo
+    output reg  [7:0] an       // √°nodos activos en bajo
 );
     // ===== divisor simple: usa el bit 16 (~1.5 kHz con 100 MHz)
     reg [16:0] divcnt;
@@ -19,7 +17,7 @@ module sevseg_two_digits(
 
     wire sel = divcnt[16]; // 0: unidades (AN0), 1: decenas (AN1)
 
-    // ===== decodificador 4-bit -> 7 segmentos (com˙n ·nodo: activo en bajo)
+    // ===== decodificador 4-bit -> 7 segmentos (com√∫n √°nodo: activo en bajo)
     function [6:0] seven_of;
         input [3:0] n;
         case (n)
