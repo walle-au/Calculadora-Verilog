@@ -1,4 +1,4 @@
-Este repositorio contiene el código Verilog/VHDL y los archivos de configuración de Vivado para la implementación de una calculadora digital de operandos de 3-bits para ser sintetizada en una FPGA NEXYS DDR4
+Este repositorio contiene el código Verilog para la implementación de una calculadora digital de operandos de 3-bits para ser sintetizada en una FPGA NEXYS DDR4
 
 El proyecto incluye las siguientes funcionalidades:
 * Suma. Resultado: 4-bits.
