@@ -3,12 +3,12 @@
 
 module top_alu_nexys4(
   input  wire        clk100mhz,     // reloj de la Nexys4 DDR
-  input  wire        btnC,          // reset activo en 1 (botón central)
+  input  wire        btnC,          // reset activo en 1 (botÃ³n central)
   input  wire [15:0] sw,            // switches
   output wire [15:0] led,           // leds
   output reg  [6:0]  seg,           // segmentos a-g, ACTIVO EN BAJO
   output reg         dp,            // punto decimal, ACTIVO EN BAJO
-  output reg  [7:0]  an             // ánodos, ACTIVO EN BAJO (an[7] = dígito más a la izquierda)
+  output reg  [7:0]  an             // Ã¡nodos, ACTIVO EN BAJO (an[7] = dÃ­gito mÃ¡s a la izquierda)
 );
 
   // ============== Entradas desde switches ==============
@@ -20,7 +20,7 @@ module top_alu_nexys4(
 
   // ============== ALU ==============
   wire [3:0] add4, sub4;            // suma y resta (4 bits)
-  wire [5:0] mul6;                  // multiplicación (6 bits)
+  wire [5:0] mul6;                  // multiplicaciÃ³n (6 bits)
   wire [5:0] Y6;                    // salida "general" de 6 bits (tu ALU ya la entrega)
   wire       sign_sub;              // 1 si la resta es negativa (borrow)
 
@@ -61,7 +61,7 @@ module top_alu_nexys4(
       end
     endcase
 
-    // Información útil en los bits altos (no afecta el resultado)
+    // InformaciÃ³n Ãºtil en los bits altos (no afecta el resultado)
     led_r[9]     = (op==2'b01) ? sign_sub : 1'b0;
     led_r[8]     = sub_dir;
     led_r[7:6]   = op;
@@ -71,7 +71,7 @@ module top_alu_nexys4(
 
   assign led = led_r;
 
-  // ============== Conversión a decimal (0..63) ==============
+  // ============== ConversiÃ³n a decimal (0..63) ==============
   // Para mostrar en 7-seg (decenas/unidades) usando Y6 (6 bits)
   wire [3:0] dec_tens;
   wire [3:0] dec_ones;
@@ -84,7 +84,7 @@ module top_alu_nexys4(
 
   assign dec_ones = Y6 - (dec_tens * 6'd10);
 
-  // ============== Driver 7-seg de 8 dígitos ==============
+  // ============== Driver 7-seg de 8 dÃ­gitos ==============
   // Divisor a ~1kHz para multiplexado
   wire tick1k;
   clk_divider #(.INPUT_HZ(100_000_000), .TARGET_HZ(1_000)) u_div (
@@ -119,7 +119,7 @@ module top_alu_nexys4(
   localparam [6:0] SEG_BLANK = 7'b1111111;
   localparam [6:0] SEG_DASH  = 7'b0111111; // solo 'g' encendida (activo en bajo)
 
-  // Dígitos que mostraremos (AN7..AN0)
+  // DÃ­gitos que mostraremos (AN7..AN0)
   // AN7 = op[1], AN6 = op[0], AN2 = signo si resta negativa, AN1=decenas, AN0=unidades
   reg [6:0] dig7, dig6, dig5, dig4, dig3, dig2, dig1, dig0;
 
@@ -131,7 +131,7 @@ module top_alu_nexys4(
     dig4 = SEG_BLANK;
     dig3 = SEG_BLANK;
 
-    // Tercer dígito desde la derecha (AN2): signo de resta si negativa
+    // Tercer dÃ­gito desde la derecha (AN2): signo de resta si negativa
     if (op == 2'b01 && sign_sub) dig2 = SEG_DASH;
     else                         dig2 = SEG_BLANK;
 
@@ -140,7 +140,7 @@ module top_alu_nexys4(
     dig0 = seg7_num(dec_ones);
   end
 
-  // Multiplexado de los 8 dígitos (ánodos activos en bajo)
+  // Multiplexado de los 8 dÃ­gitos (Ã¡nodos activos en bajo)
   always @* begin
     an  = 8'b1111_1111;     // todos apagados
     seg = SEG_BLANK;
