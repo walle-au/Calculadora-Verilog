@@ -1,5 +1,5 @@
 `timescale 1ns/1ps
-// Multiplicación sin signo de 3x3 bits => 6 bits
+// MultiplicaciÃ³n sin signo de 3x3 bits => 6 bits
 module mul3(
   input  wire [2:0] A,
   input  wire [2:0] B,
